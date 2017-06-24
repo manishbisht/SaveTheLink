@@ -24,21 +24,36 @@ var config = {
     messagingSenderId: "553681523097"
 };
 const firebase = Firebase.initializeApp(config);
-const database = firebase.database().ref();
 
 var App = CreateReactClass({
+    getInitialState: function () {
+        return { loggedIn: 'check'};
+    },
     getcurrentState: function () {
-        var user = Firebase.auth().currentUser;
+        /*var user = Firebase.auth().currentUser;
         if (user) {
-            this.loggedIn = true;
+            this.user = user;
+            this.setState({ loggedIn: 'true' });
         }
         else {
-            this.loggedIn = false;
-        }
-        return this.loggedIn;
+            this.setState({ loggedIn: 'false' });
+        }*/
+        var current = this;
+        Firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                current.user = user;
+                current.setState({ loggedIn: 'true' });
+            }
+            else {
+                current.setState({ loggedIn: 'false' });
+            }
+        });
     },
     render: function () {
-        if(this.getcurrentState())
+        if(this.state.loggedIn == "check"){
+            this.getcurrentState();
+        }
+        if(this.state.loggedIn == "true")
             return (
                 <div>
                     <AppBar title="SaveTheLink" showMenuIconButton={false}/>
