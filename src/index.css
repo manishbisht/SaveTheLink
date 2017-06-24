@@ -14,3 +14,7 @@ p {
     font-size: 30px;
     max-width: 500px;
 }
+
+.row {
+    max-width: 33%;
+}

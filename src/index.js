@@ -7,6 +7,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import './index.css';
@@ -23,21 +25,14 @@ var config = {
     storageBucket: "savethelink-9df2f.appspot.com",
     messagingSenderId: "553681523097"
 };
-const firebase = Firebase.initializeApp(config);
+Firebase.initializeApp(config);
+const database = Firebase.database();
 
 var App = CreateReactClass({
     getInitialState: function () {
         return { loggedIn: 'check'};
     },
     getcurrentState: function () {
-        /*var user = Firebase.auth().currentUser;
-        if (user) {
-            this.user = user;
-            this.setState({ loggedIn: 'true' });
-        }
-        else {
-            this.setState({ loggedIn: 'false' });
-        }*/
         var current = this;
         Firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
@@ -50,10 +45,10 @@ var App = CreateReactClass({
         });
     },
     render: function () {
-        if(this.state.loggedIn == "check"){
+        if(this.state.loggedIn === "check"){
             this.getcurrentState();
         }
-        if(this.state.loggedIn == "true")
+        if(this.state.loggedIn === "true")
             return (
                 <div>
                     <AppBar title="SaveTheLink" showMenuIconButton={false}/>
@@ -134,7 +129,7 @@ var Bookmarks = CreateReactClass({
     addtolist: function () {
         var current = this;
         var link = document.getElementById('link').value;
-        firebase.database().ref('links').push({
+        database.ref('links').push({
             link: link,
             uid: current.user.uid
         });
@@ -143,7 +138,7 @@ var Bookmarks = CreateReactClass({
     },
     printlist: function () {
         var current = this;
-        firebase.database().ref('links').orderByChild('uid').equalTo(this.user.uid).on('value', function (snapshot) {
+        database.ref('links').orderByChild('uid').equalTo(this.user.uid).on('value', function (snapshot) {
             var data = [];
             snapshot.forEach(function(childSnapshot) {
                 data.push(childSnapshot);
@@ -154,26 +149,48 @@ var Bookmarks = CreateReactClass({
     },
     render: function () {
         this.getInitialState();
-        if (this.state.data.length == 0){
+        if (this.state.data.length === 0){
             this.init();
         }
-        var cards = [];
-        for (var i = 0; i < this.state.data.length; i++) {
-            cards.push(<p>{this.state.data[i].val().link}</p>);
-        }
+        var _data = this.state.data;
         const buttonstyle = {
             margin: 10,
         };
         const textfieldstyle = {
             margin: 10,
-            width: 400,
+            width: 400
         };
         return (
             <div>
                 <center>
                     <TextField id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/" style={textfieldstyle}/>
                     <RaisedButton onClick={this.addtolist} label="Add to list" primary={true} style={buttonstyle}/>
-                    {cards}
+                    <div>
+                    {_data.map(function(object, i){
+                        return <div className={"row"} key={i}>
+                            <Card>
+                                <CardMedia
+                                    overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
+                                >
+                                    <img src="https://firebase.google.com/_static/images/firebase/touchicon-180.png" alt="" />
+                                </CardMedia>
+                                <CardTitle title="My post" subtitle="Card subtitle" />
+                                <CardText>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                                    Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                                    Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+                                </CardText>
+                                <CardActions>
+                                    <a href={object.val().link}>
+                                        <FlatButton label="Open Link" />
+                                    </a>
+                                </CardActions>
+                            </Card>
+
+                        </div>;
+                    })}
+                    </div>
                 </center>
             </div>
         )
