@@ -5,6 +5,8 @@ import Firebase from 'firebase'
 import FirebaseUI from 'firebaseui'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import './index.css';
@@ -21,7 +23,8 @@ var config = {
     storageBucket: "savethelink-9df2f.appspot.com",
     messagingSenderId: "553681523097"
 };
-Firebase.initializeApp(config);
+const firebase = Firebase.initializeApp(config);
+const database = firebase.database().ref();
 
 var App = CreateReactClass({
     getcurrentState: function () {
@@ -54,8 +57,7 @@ var App = CreateReactClass({
 
 var Login = CreateReactClass({
     getInitialState: function () {
-        return { loggedIn: 'false',
-        };
+        return { loggedIn: 'false'};
     },
     whichWindowToShow: function () {
         var user = Firebase.auth().currentUser;
@@ -107,10 +109,59 @@ var Login = CreateReactClass({
 });
 
 var Bookmarks = CreateReactClass({
+    getInitialState: function () {
+        this.user = Firebase.auth().currentUser;
+        return { data: []};
+    },
+    init : function () {
+        this.printlist();
+    },
+    addtolist: function () {
+        var current = this;
+        var link = document.getElementById('link').value;
+        firebase.database().ref('links').push({
+            link: link,
+            uid: current.user.uid
+        });
+        document.getElementById('link').value = "";
+        this.printlist();
+    },
+    printlist: function () {
+        var current = this;
+        firebase.database().ref('links').orderByChild('uid').equalTo(this.user.uid).on('value', function (snapshot) {
+            var data = [];
+            snapshot.forEach(function(childSnapshot) {
+                data.push(childSnapshot);
+                //console.log(childSnapshot.val().link);
+            });
+            current.setState({data: data});
+        });
+    },
     render: function () {
-        var user = Firebase.auth().currentUser;
-        console.log(user);
-        return <div>Your Bookmarks</div>
+        this.getInitialState();
+        if (this.state.data.length == 0){
+            this.init();
+        }
+        var cards = [];
+        for (var i = 0; i < this.state.data.length; i++) {
+            cards.push(<p>{this.state.data[i].val().link}</p>);
+        }
+        const buttonstyle = {
+            margin: 10,
+        };
+        const textfieldstyle = {
+            margin: 10,
+            width: 400,
+        };
+        return (
+            <div>
+                <center>
+                    <TextField id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/" style={textfieldstyle}/>
+                    <RaisedButton onClick={this.addtolist} label="Add to list" primary={true} style={buttonstyle}/>
+                    {cards}
+                </center>
+            </div>
+        )
     }
 });
 
