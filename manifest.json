@@ -3,7 +3,7 @@
   "name": "Save Links Application",
   "icons": [
     {
-      "src": "logo.svg",
+      "src": "./logo.svg",
       "sizes": "48x48",
       "type": "image/svg+xml"
     }
