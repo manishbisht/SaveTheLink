@@ -36,6 +36,9 @@ p {
     top: 0;
 }
 
+.loader {
+    margin-top: 200px;
+}
 .card {
     min-height: 175px;
     width: 100%;

@@ -9,6 +9,8 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import CircularProgress from 'material-ui/CircularProgress';
+import Dialog from 'material-ui/Dialog';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import na from './na.png';
@@ -56,6 +58,19 @@ var App = CreateReactClass({
                     <Bookmarks />
                 </div>
             );
+        else if (this.state.loggedIn === "check") {
+            return (
+                <div>
+                    <AppBar className={"header"} title="SaveTheLink" showMenuIconButton={false}/>
+                    <div className={"loader"}>
+                        <center>
+                            <CircularProgress size={60} thickness={5} />
+                            <div>Please Wait</div>
+                        </center>
+                    </div>
+                </div>
+            );
+        }
         else
             return (
                 <div>
@@ -122,7 +137,16 @@ var Login = CreateReactClass({
 var Bookmarks = CreateReactClass({
     getInitialState: function () {
         this.user = Firebase.auth().currentUser;
-        return { data: []};
+        return {
+            data: [],
+            open: false,
+        };
+    },
+    handleOpen: function() {
+        this.setState({open: true});
+    },
+    handleClose: function() {
+        this.setState({open: false});
     },
     init : function () {
         this.printlist();
@@ -164,6 +188,21 @@ var Bookmarks = CreateReactClass({
         const titlestyle = {
             height: 36
         };
+        if (this.state.data.length === 0){
+            return (
+                <div>
+                    <center>
+                        <TextField id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/" style={textfieldstyle}/>
+                        <RaisedButton onClick={this.addtolist} label="Add to list" primary={true} style={buttonstyle}/>
+                        <div className={"loader"}>
+                            <CircularProgress size={60} thickness={5} />
+                            <div>Please Wait</div>
+                        </div>
+                    </center>
+                </div>
+            );
+        }
+        else {
         return (
             <div>
                 <center>
@@ -193,6 +232,7 @@ var Bookmarks = CreateReactClass({
                 </center>
             </div>
         )
+        }
     }
 });
 
