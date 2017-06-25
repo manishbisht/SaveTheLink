@@ -14,6 +14,7 @@ import IconButton from 'material-ui/IconButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+import logo from './logo.svg'
 import './index.css';
 import '../node_modules/firebaseui/dist/firebaseui.css'
 
@@ -137,7 +138,10 @@ var Login = CreateReactClass({
 var Bookmarks = CreateReactClass({
     getInitialState: function () {
         this.user = Firebase.auth().currentUser;
-        return { data: []};
+        return {
+            data: [],
+            fetch: true
+        };
     },
     init : function () {
         this.printlist();
@@ -165,8 +169,9 @@ var Bookmarks = CreateReactClass({
     },
     render: function () {
         this.getInitialState();
-        if (this.state.data.length === 0){
+        if (this.state.fetch === "true"){
             this.init();
+            this.setState({fetch: false});
         }
         var _data = this.state.data;
         const buttonstyle = {
@@ -179,7 +184,7 @@ var Bookmarks = CreateReactClass({
         const titlestyle = {
             height: 36
         };
-        if (this.state.data.length === 0){
+        if (this.state.fetch === "true"){
             return (
                 <div>
                     <center>
@@ -188,6 +193,21 @@ var Bookmarks = CreateReactClass({
                         <div className={"loader"}>
                             <CircularProgress size={60} thickness={5} />
                             <div>Please Wait</div>
+                        </div>
+                    </center>
+                </div>
+            );
+        }
+        else if (this.state.data.length === 0){
+            return (
+                <div>
+                    <center>
+                        <TextField id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/" style={textfieldstyle}/>
+                        <RaisedButton onClick={this.addtolist} label="Add to list" primary={true} style={buttonstyle}/>
+                        <div className={"loader"}>
+                            <img src={logo} />
+                            <div>No Links Found</div>
+                            <div>Add from above textfield</div>
                         </div>
                     </center>
                 </div>
