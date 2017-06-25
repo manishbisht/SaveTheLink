@@ -159,6 +159,13 @@ var Bookmarks = CreateReactClass({
         document.getElementById('link').value = "";
         this.printlist();
     },
+    deletefromlist: function (key) {
+        console.log(key);
+    },
+    logout: function () {
+        Firebase.auth().signOut();
+        window.location.reload()
+    },
     printlist: function () {
         var current = this;
         database.ref('links').orderByChild('uid').equalTo(this.user.uid).on('value', function (snapshot) {
@@ -179,12 +186,14 @@ var Bookmarks = CreateReactClass({
         const titlestyle = {
             height: 36
         };
+        var current = this;
         if (this.state.fetch === "true"){
             return (
                 <div>
                     <center>
                         <TextField className={"searchfield"} id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/"/>
                         <RaisedButton className={"searchbutton"} onClick={this.addtolist} label="Add to list" primary={true}/>
+                        <FlatButton className={"logoutbutton"} onClick={this.logout} label="Logout" secondary={true} icon={<FontIcon className="material-icons">input</FontIcon>}/>
                         <div className={"loader"}>
                             <CircularProgress size={60} thickness={5} />
                             <div>Please Wait</div>
@@ -199,6 +208,7 @@ var Bookmarks = CreateReactClass({
                     <center>
                         <TextField className={"searchfield"} id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/"/>
                         <RaisedButton className={"searchbutton"} onClick={this.addtolist} label="Add to list" primary={true}/>
+                        <FlatButton className={"logoutbutton"} onClick={this.logout} label="Logout" secondary={true} icon={<FontIcon className="material-icons">input</FontIcon>}/>
                         <div className={"loader"}>
                             <img src={logo} />
                             <div>No Links Found</div>
@@ -212,9 +222,10 @@ var Bookmarks = CreateReactClass({
         return (
             <div>
                 <center>
+                    <div className={"page-content"}>
                     <TextField className={"searchfield"} id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/"/>
                     <RaisedButton className={"searchbutton"} onClick={this.addtolist} label="Add to list" primary={true}/>
-                    <div className={"page-content"}>
+                    <FlatButton className={"logoutbutton"} onClick={this.logout} label="Logout" secondary={true} icon={<FontIcon className="material-icons">input</FontIcon>}/>
                     {_data.map(function(object, i){
                         return <div className={"row"} key={i}>
                             <Card className={"card"}>

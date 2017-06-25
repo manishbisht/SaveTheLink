@@ -45,6 +45,10 @@ p {
 .searchfield {
     width: 66% !important;
 }
+
+.searchbutton {
+    margin-left: 10px;
+}
 .card {
     min-height: 175px;
     width: 100%;
@@ -65,11 +69,17 @@ p {
     overflow: hidden;
 }
 
+.logoutbutton {
+    float: right;
+    margin: 5px !important;
+}
+
 @media only screen and (max-width: 500px) {
     /* For mobile phones: */
     .searchfield {
         width: 95% !important;
         margin: 5px !important;
+        margin-top: 25px !important;
     }
 
     .searchbutton {
@@ -78,6 +88,11 @@ p {
         margin-top: 0;
     }
 
+    .logoutbutton {
+        width: 95%;
+        margin: 5px;
+        margin-top: 0;
+    }
     .row {
         max-width: 95%;
         min-width: 95%;
