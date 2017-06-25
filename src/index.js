@@ -10,7 +10,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
-import Dialog from 'material-ui/Dialog';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import na from './na.png';
@@ -137,16 +136,7 @@ var Login = CreateReactClass({
 var Bookmarks = CreateReactClass({
     getInitialState: function () {
         this.user = Firebase.auth().currentUser;
-        return {
-            data: [],
-            open: false,
-        };
-    },
-    handleOpen: function() {
-        this.setState({open: true});
-    },
-    handleClose: function() {
-        this.setState({open: false});
+        return { data: []};
     },
     init : function () {
         this.printlist();
