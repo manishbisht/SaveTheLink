@@ -176,13 +176,6 @@ var Bookmarks = CreateReactClass({
             this.init();
         }
         var _data = this.state.data;
-        const buttonstyle = {
-            margin: 10,
-        };
-        const textfieldstyle = {
-            margin: 10,
-            width: 400
-        };
         const titlestyle = {
             height: 36
         };
@@ -190,8 +183,8 @@ var Bookmarks = CreateReactClass({
             return (
                 <div>
                     <center>
-                        <TextField id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/" style={textfieldstyle}/>
-                        <RaisedButton onClick={this.addtolist} label="Add to list" primary={true} style={buttonstyle}/>
+                        <TextField className={"searchfield"} id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/"/>
+                        <RaisedButton className={"searchbutton"} onClick={this.addtolist} label="Add to list" primary={true}/>
                         <div className={"loader"}>
                             <CircularProgress size={60} thickness={5} />
                             <div>Please Wait</div>
@@ -204,8 +197,8 @@ var Bookmarks = CreateReactClass({
             return (
                 <div>
                     <center>
-                        <TextField id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/" style={textfieldstyle}/>
-                        <RaisedButton onClick={this.addtolist} label="Add to list" primary={true} style={buttonstyle}/>
+                        <TextField className={"searchfield"} id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/"/>
+                        <RaisedButton className={"searchbutton"} onClick={this.addtolist} label="Add to list" primary={true}/>
                         <div className={"loader"}>
                             <img src={logo} />
                             <div>No Links Found</div>
@@ -219,8 +212,8 @@ var Bookmarks = CreateReactClass({
         return (
             <div>
                 <center>
-                    <TextField id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/" style={textfieldstyle}/>
-                    <RaisedButton onClick={this.addtolist} label="Add to list" primary={true} style={buttonstyle}/>
+                    <TextField className={"searchfield"} id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/"/>
+                    <RaisedButton className={"searchbutton"} onClick={this.addtolist} label="Add to list" primary={true}/>
                     <div className={"page-content"}>
                     {_data.map(function(object, i){
                         return <div className={"row"} key={i}>

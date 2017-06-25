@@ -41,6 +41,10 @@ p {
 .loader {
     margin-top: 200px;
 }
+
+.searchfield {
+    width: 66% !important;
+}
 .card {
     min-height: 175px;
     width: 100%;
@@ -59,4 +63,24 @@ p {
     min-height: 49px;
     max-height: 65px;
     overflow: hidden;
+}
+
+@media only screen and (max-width: 500px) {
+    /* For mobile phones: */
+    .searchfield {
+        width: 95% !important;
+        margin: 5px !important;
+    }
+
+    .searchbutton {
+        width: 95%;
+        margin: 5px;
+        margin-top: 0;
+    }
+
+    .row {
+        max-width: 95%;
+        min-width: 95%;
+        margin: 5px;
+    }
 }
