@@ -9,10 +9,11 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import na from './na.png';
 import './index.css';
 import '../node_modules/firebaseui/dist/firebaseui.css'
 
@@ -53,14 +54,14 @@ var App = CreateReactClass({
         if(this.state.loggedIn === "true")
             return (
                 <div>
-                    <AppBar className={"header"} title="SaveTheLink" showMenuIconButton={false}/>
+                    <AppBar className={"header"} title="SaveTheLink" iconElementLeft={<IconButton><FontIcon className="material-icons">bookmark_border</FontIcon></IconButton>}/>
                     <Bookmarks />
                 </div>
             );
         else if (this.state.loggedIn === "check") {
             return (
                 <div>
-                    <AppBar className={"header"} title="SaveTheLink" showMenuIconButton={false}/>
+                    <AppBar className={"header"} title="SaveTheLink" iconElementLeft={<IconButton><FontIcon className="material-icons">bookmark_border</FontIcon></IconButton>}/>
                     <div className={"loader"}>
                         <center>
                             <CircularProgress size={60} thickness={5} />
@@ -73,7 +74,7 @@ var App = CreateReactClass({
         else
             return (
                 <div>
-                    <AppBar className={"header"} title="SaveTheLink" showMenuIconButton={false}/>
+                    <AppBar className={"header"} title="SaveTheLink" iconElementLeft={<IconButton><FontIcon className="material-icons">bookmark_border</FontIcon></IconButton>}/>
                     <Login />
                 </div>
             );
