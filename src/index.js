@@ -140,7 +140,7 @@ var Bookmarks = CreateReactClass({
         this.user = Firebase.auth().currentUser;
         return {
             data: [],
-            fetch: true
+            fetch: "true"
         };
     },
     init : function () {
@@ -151,7 +151,10 @@ var Bookmarks = CreateReactClass({
         var link = document.getElementById('link').value;
         database.ref('links').push({
             link: link,
-            uid: current.user.uid
+            uid: current.user.uid,
+            title: 'Fetching...',
+            image: 'http://www.worldbank.org/content/dam/wbr/previewnotavailable.gif',
+            description: 'Fetching...'
         });
         document.getElementById('link').value = "";
         this.printlist();
@@ -164,14 +167,13 @@ var Bookmarks = CreateReactClass({
                 data.push(childSnapshot);
                 //console.log(childSnapshot.val().link);
             });
-            current.setState({data: data});
+            current.setState({data: data, fetch: "false"});
         });
     },
     render: function () {
         this.getInitialState();
         if (this.state.fetch === "true"){
             this.init();
-            this.setState({fetch: false});
         }
         var _data = this.state.data;
         const buttonstyle = {
@@ -198,7 +200,7 @@ var Bookmarks = CreateReactClass({
                 </div>
             );
         }
-        else if (this.state.data.length === 0){
+        else if (this.state.data.length === 0 && this.state.fetch === "false"){
             return (
                 <div>
                     <center>

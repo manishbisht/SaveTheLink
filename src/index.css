@@ -25,7 +25,8 @@ p {
     min-width: 31%;
     padding: 1%;
     display: -webkit-inline-box;
-    float: left;
+    min-height: 372px;
+    vertical-align: bottom;
 }
 
 .page-content {
