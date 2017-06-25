@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
@@ -15,6 +15,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import logo from './logo.svg'
+import home from './home.png'
 import './index.css';
 import '../node_modules/firebaseui/dist/firebaseui.css'
 
@@ -121,6 +122,9 @@ var Login = CreateReactClass({
                         <div id="firebaseui-auth-container"></div>
                         <p>Save all your useful links at one place and access them anywhere.</p>
                     </center>
+                    <div>
+                        <center><img className={"imageresponsive"} src={home} alt="" /></center>
+                    </div>
                 </div>
             );
         }
@@ -186,7 +190,6 @@ var Bookmarks = CreateReactClass({
         const titlestyle = {
             height: 36
         };
-        var current = this;
         if (this.state.fetch === "true"){
             return (
                 <div>
@@ -210,7 +213,7 @@ var Bookmarks = CreateReactClass({
                         <RaisedButton className={"searchbutton"} onClick={this.addtolist} label="Add to list" primary={true}/>
                         <FlatButton className={"logoutbutton"} onClick={this.logout} label="Logout" secondary={true} icon={<FontIcon className="material-icons">input</FontIcon>}/>
                         <div className={"loader"}>
-                            <img src={logo} />
+                            <img src={logo} alt="" />
                             <div>No Links Found</div>
                             <div>Add from above textfield</div>
                         </div>

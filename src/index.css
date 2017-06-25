@@ -74,6 +74,10 @@ p {
     margin: 5px !important;
 }
 
+.imageresponsive {
+    width: 100%;
+    max-width: 1005px;
+}
 @media only screen and (max-width: 500px) {
     /* For mobile phones: */
     .searchfield {
@@ -97,5 +101,11 @@ p {
         max-width: 95%;
         min-width: 95%;
         margin: 5px;
+    }
+    #firebaseui-auth-container {
+        width: 76%;
+    }
+    p {
+        max-width: 100%;
     }
 }
