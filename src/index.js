@@ -11,6 +11,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+import na from './na.png';
 import './index.css';
 import '../node_modules/firebaseui/dist/firebaseui.css'
 
@@ -51,14 +52,14 @@ var App = CreateReactClass({
         if(this.state.loggedIn === "true")
             return (
                 <div>
-                    <AppBar title="SaveTheLink" showMenuIconButton={false}/>
+                    <AppBar className={"header"} title="SaveTheLink" showMenuIconButton={false}/>
                     <Bookmarks />
                 </div>
             );
         else
             return (
                 <div>
-                    <AppBar title="SaveTheLink" showMenuIconButton={false}/>
+                    <AppBar className={"header"} title="SaveTheLink" showMenuIconButton={false}/>
                     <Login />
                 </div>
             );
@@ -160,29 +161,27 @@ var Bookmarks = CreateReactClass({
             margin: 10,
             width: 400
         };
+        const titlestyle = {
+            height: 36
+        };
         return (
             <div>
                 <center>
                     <TextField id="link" hintText="Ex. https://hackbit.github.io/reactriot2017-manishbisht/" style={textfieldstyle}/>
                     <RaisedButton onClick={this.addtolist} label="Add to list" primary={true} style={buttonstyle}/>
-                    <div>
+                    <div className={"page-content"}>
                     {_data.map(function(object, i){
                         return <div className={"row"} key={i}>
-                            <Card>
-                                <CardMedia
-                                    overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
-                                >
-                                    <img src="https://firebase.google.com/_static/images/firebase/touchicon-180.png" alt="" />
+                            <Card className={"card"}>
+                                <CardMedia>
+                                    <img className={"cardimage"} src={object.val().image} alt="" />
                                 </CardMedia>
-                                <CardTitle title="My post" subtitle="Card subtitle" />
-                                <CardText>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                                    Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                                    Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+                                <CardTitle className={"cardtitle"} titleStyle={titlestyle} title={object.val().title} subtitle={object.val().created} />
+                                <CardText className={"carddescription"}>
+                                    {object.val().description}
                                 </CardText>
                                 <CardActions>
-                                    <a href={object.val().link}>
+                                    <a target="_blank" href={object.val().link}>
                                         <FlatButton label="Open Link" />
                                     </a>
                                 </CardActions>

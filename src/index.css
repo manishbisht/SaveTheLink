@@ -5,6 +5,10 @@ body, p {
     font-family: Roboto;
 }
 
+body {
+    padding-top: 65px;
+}
+
 h1 {
     margin-bottom: 5px;
 }
@@ -16,5 +20,38 @@ p {
 }
 
 .row {
-    max-width: 33%;
+    max-width: 31%;
+    min-width: 31%;
+    padding: 1%;
+    display: -webkit-inline-box;
+    float: left;
+}
+
+.page-content {
+    max-width: 1000px;
+}
+
+.header {
+    position: fixed !important;
+    top: 0;
+}
+
+.card {
+    min-height: 175px;
+    width: 100%;
+}
+
+.cardimage {
+    max-height: 140px;
+}
+
+.cardtitle span {
+    overflow: hidden;
+}
+
+.carddescription {
+    padding-bottom: 0;
+    min-height: 49px;
+    max-height: 65px;
+    overflow: hidden;
 }
